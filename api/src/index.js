@@ -1,12 +1,20 @@
 const express = require('express');
+const { port } = require('./configuration');
+const { connectToDatabase } = require('./helpers/db');
+
 const app = express();
 
-const port = process.env.PORT;
+const startServer = () => {
+    app.listen(port, () => {
+        console.log('Started');
+    });
+};
 
 app.get('/test', (request, response) => {
     response.send('It\'s working!');
 });
 
-app.listen(port, () => {
-    console.log('Started');
-});
+connectToDatabase()
+    .on('error', console.log)
+    .on('disconnected', connectToDatabase)
+    .once('open', startServer);
