@@ -6,7 +6,7 @@ const app = express();
 
 const startServer = () => {
     app.listen(port, () => {
-        console.log('Api server is started');
+        console.log('Auth server is started');
     });
 };
 
