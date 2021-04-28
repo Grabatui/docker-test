@@ -10,8 +10,11 @@ const startServer = () => {
     });
 };
 
-app.get('/test', (request, response) => {
-    response.send('It\'s working!');
+app.get('/api/currentUser', (request, response) => {
+    response.json({
+        id: 111,
+        email: 'foo@gmail.com',
+    });
 });
 
 connectToDatabase()

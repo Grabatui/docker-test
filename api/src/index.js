@@ -1,5 +1,6 @@
 const express = require('express');
-const { port } = require('./configuration');
+const axios = require('axios');
+const { port, authUrl } = require('./configuration');
 const { connectToDatabase } = require('./helpers/db');
 
 const app = express();
@@ -10,8 +11,12 @@ const startServer = () => {
     });
 };
 
-app.get('/test', (request, response) => {
-    response.send('It\'s working!');
+app.get('/withCurrentUser', (request, response) => {
+    axios.get(authUrl + '/currentUser').then((authResponse) => {
+        response.json({
+            currentUser: authResponse.data,
+        })
+    });
 });
 
 connectToDatabase()
