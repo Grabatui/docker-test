@@ -10,7 +10,7 @@ const startServer = () => {
     });
 };
 
-app.get('/api/currentUser', (request, response) => {
+app.get('/currentUser', (request, response) => {
     response.json({
         id: 111,
         email: 'foo@gmail.com',
