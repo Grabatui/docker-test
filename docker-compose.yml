@@ -20,8 +20,10 @@ services:
             - PORT=3001
             - MONGO_URL=mongodb://api_db:27017/api
             - AUTH_URL=http://auth:3002
+            - MAIL_URL=http://mail:3003
         depends_on:
             - api_db
+            - mail
         networks:
             - docker-test-network
 
@@ -34,8 +36,22 @@ services:
             - PORT=3002
             - MONGO_URL=mongodb://auth_db:27017/auth
             - API_URL=http://api:3001
+            - MAIL_URL=http://mail:3003
         depends_on:
             - auth_db
+            - mail
+        networks:
+            - docker-test-network
+
+    mail:
+        build: ./mail
+        container_name: docker-test-mail
+        command: npm run start
+        restart: unless-stopped
+        environment:
+            - PORT=3003
+            - MAILGUN_API_KEY=XXXX
+            - MAILGUN_DOMAIN=XXXX.mailgun.org
         networks:
             - docker-test-network
 

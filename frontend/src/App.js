@@ -3,11 +3,23 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
-  const makeRequest = () => {
+  const makeTestRequest = () => {
     axios('/api/withCurrentUser').then((reponse) => {
       console.log(reponse);
     });
-};
+  };
+
+  const makeApiRequest = () => {
+    axios.post('/api/testMail').then((response) => {
+      console.log(response);
+    });
+  };
+
+  const makeAuthRequest = () => {
+    axios.post('/auth/api/testMail').then((response) => {
+      console.log(response);
+    });
+  };
 
   return (
     <div className="App">
@@ -26,7 +38,11 @@ function App() {
         </a>
       </header>
 
-      <button onClick={makeRequest}>Make api request</button>
+      <button onClick={makeTestRequest}>Make test api request</button>
+
+      <button onClick={makeApiRequest}>Make mail api request</button>
+
+      <button onClick={makeAuthRequest}>Make mail auth request</button>
     </div>
   );
 }
